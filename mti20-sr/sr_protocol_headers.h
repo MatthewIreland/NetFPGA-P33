@@ -1,4 +1,4 @@
-`/*
+/*
  *  Copyright (c) 1998, 1999, 2000 Mike D. Schiffman <mike@infonexus.com>
  *  All rights reserved.
  *
