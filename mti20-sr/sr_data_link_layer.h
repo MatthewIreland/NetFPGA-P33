@@ -8,10 +8,12 @@
 #ifndef SR_ETHERNET_H_
 #define SR_ETHERNET_H_
 
+#include "sr_protocol_headers.h"
+
 struct sr_ethernet_datagram {
-  unsigned int datagram_length;
-  struct sr_ethernet_header hdr;
-  uint8_t payload[];
+  unsigned int datagram_length;        // length of header + payload
+  struct sr_ethernet_hdr* hdr;
+  uint8_t* payload;                    // length of payload is datagram_length-22
 } __attribute__ ((packed));
 
 /*-----------------------------------------------------------------------------
@@ -22,16 +24,17 @@ struct sr_ethernet_datagram {
  * Returns: 0 if successful, 1 otherwise
  *-----------------------------------------------------------------------------*/
 int sr_strip_datagram_hdr (struct sr_ethernet_datagram* new_datagram /* pointer to unallocated member, which will contain the new datagram */,
-                           struct uint8_t* raw_frame /* frame as received, ready to be processed */ );
+                           unsigned int len /* length of raw frame */,
+			   uint8_t* raw_frame /* frame as received, ready to be processed */ );
 
 /*-----------------------------------------------------------------------------
  * Method: sr_add_datagram_hdr (...) {
  * Purpose: Called when processing a datagram that needs to be sent out
  *          Puts the header and payload together into a uint8_t array, ready
  *          to send down to the physical layer
- * Returns: 0 if successful, 1 otherwise
+ * Returns: length of datagram, 0 if failed
  *-----------------------------------------------------------------------------*/
-int sr_add_datagram_hdr ();
+int sr_add_datagram_hdr (struct sr_ethernet_datagram* orig_datagram /* pointer to the separate header and payload ready to combine for the physical layer */,
+                         uint8_t* raw_frame   /* unallocated memory, ready to contain the combined atagram */);
 
-
-#endif
+#endif /* SR_ETHERNET_H_ */
