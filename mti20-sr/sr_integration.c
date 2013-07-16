@@ -64,10 +64,7 @@ void sr_integ_hw_setup(struct sr_instance* sr)
  * interface are passed in as parameters. The packet is complete with
  * ethernet headers.
  *
- * Note: Both the packet buffer and the character's memory are handled
- * by sr_vns_comm.c that means do NOT delete either.  Make a copy of the
- * packet instead if you intend to keep it around beyond the scope of
- * the method call.
+
  *
  *---------------------------------------------------------------------*/
 
@@ -76,14 +73,16 @@ void sr_integ_input(struct sr_instance* sr,
         unsigned int len,
         const char* interface/* borrowed */)
 {
-    /* -- INTEGRATION PACKET ENTRY POINT!-- */
+    /* -- INTEGRATION PACKET ENTRY POINT! -- */
 
     printf(" ** sr_integ_input(..) called \n");
+
     
-    sr_integ_low_level_output(sr /* borrowed */,
-                       packet /* borrowed */ ,
-                       len,
-                       interface /* borrowed */);
+    
+    //sr_integ_low_level_output(sr /* borrowed */,
+    //                   packet /* borrowed */ ,
+    //                   len,
+    //                   interface /* borrowed */);
 
 } /* -- sr_integ_input -- */
 
