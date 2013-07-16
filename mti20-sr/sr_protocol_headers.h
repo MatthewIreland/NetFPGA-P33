@@ -78,7 +78,7 @@
 /*
  * Structure of an internet header, naked of options.
  */
-struct ip
+struct sr_ip_hdr
   {
 #if __BYTE_ORDER == __LITTLE_ENDIAN
     unsigned int ip_hl:4;		/* header length */
@@ -136,7 +136,7 @@ struct sr_ethernet_hdr
 #define ARP_REQUEST 1
 #define ARP_REPLY   2
 
-struct sr_arphdr 
+struct sr_arp_hdr 
 {
     unsigned short  ar_hrd;             /* format of hardware address   */
     unsigned short  ar_pro;             /* format of protocol address   */
